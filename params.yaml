@@ -1,0 +1,9 @@
+
+epochs: 8
+
+log_file: logs.csv
+dropout: 0.11
+
+process:
+    threshold: 0.85
+
