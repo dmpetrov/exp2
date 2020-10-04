@@ -9,6 +9,7 @@ import wandb
 from wandb.keras import WandbCallback
 from mymodel import create_model
 import os
+from tensorflow import keras
 
 wandb.init(project="mnist")
 
@@ -21,6 +22,12 @@ dropout = params['dropout']
 #neptune.create_experiment(name='exp1', params=params)
 
 mnist = tf.keras.datasets.mnist
+
+
+class CustomCallback(keras.callbacks.Callback):
+    def on_epoch_end(self, epoch, logs=None):
+        keys = list(logs.keys())
+        print("End epoch {} of training; got log keys: {}".format(epoch, logs))
 
 (x_train, y_train),(x_test, y_test) = mnist.load_data()
 x_train, x_test = x_train / 255.0, x_test / 255.0
@@ -47,6 +54,7 @@ history = model.fit(x=x_train,
                         tensorboard_callback
                         #, NeptuneMonitor()
                         , WandbCallback()
+                        , CustomCallback()
                     ])
 end_real = time.time()
 end_process = time.process_time()
