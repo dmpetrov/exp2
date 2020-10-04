@@ -4,21 +4,21 @@ train:
   - path: mymodel.py
     md5: c2bdd289b204555b3c7c263464a9e15e
   - path: train.py
-    md5: ad59ab3ec77446656bb3aef761caefbd
+    md5: e30954ec36f1af9dbe9d0cd5022e104f
   - path: users.csv
     md5: fadc70dff966edd21b3dd2b0c2755189
   params:
     params.yaml:
-      dropout: 0.123
+      dropout: 0.124
       dvc_logs_dir: dvc_logs
       epochs: 5
       log_file: logs.csv
   outs:
   - path: dvc_logs
-    md5: ad946c433da874236ab0aebbf01d41ea.dir
+    md5: feae1faa54e1ed9a49a66c1f7162ee26.dir
   - path: logs
-    md5: 484b6526b9ba80d7d5ae5ef6fc4b29ee.dir
+    md5: 0baf8df7dd385146d5e75723e4252482.dir
   - path: logs.csv
-    md5: 5f477ca0c121a8b5f2e9bb355674225d
+    md5: 4867ead3ad64290e1bd5505bc267322d
   - path: summary.json
-    md5: 08a528e159c9dc27113b4c9a1e063ee5
+    md5: 69cc4e1b7f09f621c8312bc67f48d5b7

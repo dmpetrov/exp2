@@ -35,9 +35,18 @@ class CustomCallback(keras.callbacks.Callback):
     def on_epoch_end(self, epoch, logs=None):
         logdir = os.path.join(dvc_logs_dir, logs_subdir)
         for k, v in logs.items():
-            with open(os.path.join(logdir, k + '.json'), 'a') as fd:
-                fd.write(json.dumps({k: v}) + os.linesep)
-        #print("End epoch {} of training; got log keys: {}".format(epoch, logs))
+            file = os.path.join(logdir, k + '.tsv')
+            fd = None
+            try:
+                if not os.path.exists(file):
+                    fd = open(file, 'w+')
+                    fd.write(str(k) + os.linesep)
+                else:
+                    fd = open(file, 'a')
+                fd.write(str(v) + os.linesep)
+            finally:
+                if fd:
+                    fd.close()
 
 (x_train, y_train),(x_test, y_test) = mnist.load_data()
 x_train, x_test = x_train / 255.0, x_test / 255.0
