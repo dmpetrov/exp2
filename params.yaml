@@ -4,7 +4,7 @@ epochs: 5
 dvc_logs_dir: dvc_logs
 
 log_file: logs.csv
-dropout: 0.11
+dropout: 0.123
 
 process:
     threshold: 0.85

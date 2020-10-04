@@ -9,6 +9,7 @@ stages:
     - epochs
     - log_file
     - dvc_logs_dir
+    - dropout
     outs:
     - logs
     - dvc_logs
