@@ -10,6 +10,7 @@ from wandb.keras import WandbCallback
 from mymodel import create_model
 import os
 from tensorflow import keras
+import shutil
 
 wandb.init(project="mnist")
 
@@ -17,17 +18,26 @@ params = yaml.safe_load(open('params.yaml'))
 epochs = params['epochs']
 log_file = params['log_file']
 dropout = params['dropout']
+dvc_logs_dir = params['dvc_logs_dir']
+logs_subdir = 'logs'
 
 #neptune.init('dmpetrov/sandbox')
 #neptune.create_experiment(name='exp1', params=params)
 
 mnist = tf.keras.datasets.mnist
 
-
 class CustomCallback(keras.callbacks.Callback):
+    def on_train_begin(self, logs=None):
+        shutil.rmtree(dvc_logs_dir, ignore_errors=True)
+        os.mkdir(dvc_logs_dir)
+        os.mkdir(os.path.join(dvc_logs_dir, logs_subdir))
+
     def on_epoch_end(self, epoch, logs=None):
-        keys = list(logs.keys())
-        print("End epoch {} of training; got log keys: {}".format(epoch, logs))
+        logdir = os.path.join(dvc_logs_dir, logs_subdir)
+        for k, v in logs.items():
+            with open(os.path.join(logdir, k + '.json'), 'a') as fd:
+                fd.write(json.dumps({k: v}) + os.linesep)
+        #print("End epoch {} of training; got log keys: {}".format(epoch, logs))
 
 (x_train, y_train),(x_test, y_test) = mnist.load_data()
 x_train, x_test = x_train / 255.0, x_test / 255.0

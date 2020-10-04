@@ -1,6 +1,8 @@
 
 epochs: 5
 
+dvc_logs_dir: dvc_logs
+
 log_file: logs.csv
 dropout: 0.11
 

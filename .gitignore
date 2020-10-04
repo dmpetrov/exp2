@@ -2,3 +2,5 @@
 /logs
 /__pycache__
 /dvc_logs
+/wandb
+plots.html

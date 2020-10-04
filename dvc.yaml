@@ -8,8 +8,10 @@ stages:
     params:
     - epochs
     - log_file
+    - dvc_logs_dir
     outs:
     - logs
+    - dvc_logs
     metrics:
     - summary.json:
         cache: false
