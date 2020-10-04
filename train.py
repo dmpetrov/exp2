@@ -3,17 +3,22 @@ import datetime
 import yaml
 import json
 import time
-import neptune
-from neptunecontrib.monitoring.keras import NeptuneMonitor
+#import neptune
+#from neptunecontrib.monitoring.keras import NeptuneMonitor
+import wandb
+from wandb.keras import WandbCallback
 from mymodel import create_model
+import os
+
+wandb.init(project="mnist")
 
 params = yaml.safe_load(open('params.yaml'))
 epochs = params['epochs']
 log_file = params['log_file']
 dropout = params['dropout']
 
-neptune.init('dmpetrov/sandbox')
-neptune.create_experiment(name='exp1', params=params)
+#neptune.init('dmpetrov/sandbox')
+#neptune.create_experiment(name='exp1', params=params)
 
 mnist = tf.keras.datasets.mnist
 
@@ -40,7 +45,8 @@ history = model.fit(x=x_train,
                     callbacks=[
                         csv_logger,
                         tensorboard_callback
-                        , NeptuneMonitor()
+                        #, NeptuneMonitor()
+                        , WandbCallback()
                     ])
 end_real = time.time()
 end_process = time.process_time()
@@ -52,4 +58,6 @@ with open("summary.json", "w") as fd:
         "time_real" : end_real - start_real,
         "time_process": end_process - start_process
     }, fd)
+
+model.save(os.path.join(wandb.run.dir, "model.h5"))
 

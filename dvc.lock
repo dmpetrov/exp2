@@ -4,17 +4,17 @@ train:
   - path: mymodel.py
     md5: c2bdd289b204555b3c7c263464a9e15e
   - path: train.py
-    md5: b1be5e4bffb90f7dec4125b804c2c9cb
+    md5: cb32b1634dd2beae5e06ddc45de008b3
   - path: users.csv
     md5: fadc70dff966edd21b3dd2b0c2755189
   params:
     params.yaml:
-      epochs: 8
+      epochs: 5
       log_file: logs.csv
   outs:
   - path: logs
-    md5: d33fb5096f90e41e29f5ae2292eaf442.dir
+    md5: b365ee79ea4b251db0fe230d442d3516.dir
   - path: logs.csv
-    md5: 141954ccae4039936aca4570baa89d78
+    md5: 62652221f29302c5991ff5d148262e12
   - path: summary.json
-    md5: e1fd7d73107ee6fbef197fd8d35e6a2c
+    md5: c78183eb0b4ca7220715c45e89801648
