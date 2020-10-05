@@ -17,6 +17,9 @@ stages:
     metrics:
     - summary.json:
         cache: false
+    metrics:
+    - cust_metr.json:
+        cache: false
     plots:
     - logs.csv:
         cache: false
