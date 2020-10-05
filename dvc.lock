@@ -4,7 +4,7 @@ train:
   - path: mymodel.py
     md5: c2bdd289b204555b3c7c263464a9e15e
   - path: train.py
-    md5: e30954ec36f1af9dbe9d0cd5022e104f
+    md5: c966c658613ecbb90aeca14d98b68dca
   - path: users.csv
     md5: fadc70dff966edd21b3dd2b0c2755189
   params:
@@ -15,10 +15,10 @@ train:
       log_file: logs.csv
   outs:
   - path: dvc_logs
-    md5: feae1faa54e1ed9a49a66c1f7162ee26.dir
+    md5: 203dad6c8f9fbd47367b3432c4e57a7b.dir
   - path: logs
-    md5: 0baf8df7dd385146d5e75723e4252482.dir
+    md5: d0ef7969e9e017613898414990e33fca.dir
   - path: logs.csv
-    md5: 4867ead3ad64290e1bd5505bc267322d
+    md5: 79a23ca1accb03c91ab0520a09e30003
   - path: summary.json
-    md5: 69cc4e1b7f09f621c8312bc67f48d5b7
+    md5: 76a925b98d55101841c68a2f62e35f9a

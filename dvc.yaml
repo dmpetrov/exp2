@@ -5,6 +5,7 @@ stages:
     - users.csv
     - train.py
     - mymodel.py
+    - elog
     params:
     - epochs
     - log_file

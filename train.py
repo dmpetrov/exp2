@@ -9,8 +9,7 @@ import wandb
 from wandb.keras import WandbCallback
 from mymodel import create_model
 import os
-from tensorflow import keras
-import shutil
+from elog.keras import ElogCallback
 
 wandb.init(project="mnist")
 
@@ -26,31 +25,8 @@ logs_subdir = 'logs'
 
 mnist = tf.keras.datasets.mnist
 
-class CustomCallback(keras.callbacks.Callback):
-    def on_train_begin(self, logs=None):
-        shutil.rmtree(dvc_logs_dir, ignore_errors=True)
-        os.mkdir(dvc_logs_dir)
-        os.mkdir(os.path.join(dvc_logs_dir, logs_subdir))
-
-    def on_epoch_end(self, epoch, logs=None):
-        logdir = os.path.join(dvc_logs_dir, logs_subdir)
-        for k, v in logs.items():
-            file = os.path.join(logdir, k + '.tsv')
-            fd = None
-            try:
-                if not os.path.exists(file):
-                    fd = open(file, 'w+')
-                    fd.write(str(k) + os.linesep)
-                else:
-                    fd = open(file, 'a')
-                fd.write(str(v) + os.linesep)
-            finally:
-                if fd:
-                    fd.close()
-
 (x_train, y_train),(x_test, y_test) = mnist.load_data()
 x_train, x_test = x_train / 255.0, x_test / 255.0
-
 
 model = create_model(dropout)
 model.compile(optimizer='adam',
@@ -73,7 +49,7 @@ history = model.fit(x=x_train,
                         tensorboard_callback
                         #, NeptuneMonitor()
                         , WandbCallback()
-                        , CustomCallback()
+                        , ElogCallback()
                     ])
 end_real = time.time()
 end_process = time.process_time()
