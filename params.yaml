@@ -1,9 +1,12 @@
+main-section:
 
-epochs: 4
+    trian:
+        epochs: 4
 
-log_file: logs.csv
-dropout: 0.11
+        others:
+            log_file: logs.csv
+            dropout: 0.11
 
-process:
-    threshold: 0.85
-
+    section2: 
+        process:
+            threshold: 0.85
